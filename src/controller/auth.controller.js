@@ -3,6 +3,7 @@ const { PRIVATE_KEY } = require("../app/config");
 
 class AuthController {
   async login(ctx, next) {
+   try {
     const { id, name } = ctx.user;
     const token = jwt.sign({ id, name }, PRIVATE_KEY, {
       expiresIn: 60 * 60 * 24,
@@ -13,6 +14,9 @@ class AuthController {
       name,
       token,
     };
+   } catch (error) {
+    console.log(error)
+   }
   }
 
   async success(ctx, next) {
